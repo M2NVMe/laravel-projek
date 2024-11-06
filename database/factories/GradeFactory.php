@@ -26,8 +26,19 @@ class GradeFactory extends Factory
 
         $department = Department::inRandomOrder()->first();
 
+        [$min, $max] = match ($department->name) {
+            'PPLG' => [1, 2],
+            'DKV' => [1, 3],
+            'TG' => [1, 2],
+            'ANIM 3D' => [1, 3],
+            'ANIM 2D' => [1, 2],
+            default => [1, 5],
+        };
+
+        $subNumber = $this->faker->numberBetween($min, $max);
+
         return [
-            'name' => $this->faker->numberBetween(10, 12) . ' ' . $department->name . ' ' . $this->faker->numberBetween(1, 5),
+            'name' => $this->faker->numberBetween(10, 12) . ' ' . $department->name . ' ' . $subNumber,
             'department_id' => $department->id,
         ];
     }
