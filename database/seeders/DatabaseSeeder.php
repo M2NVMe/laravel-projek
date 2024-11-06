@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // DI INGAT: HARUS SESUAI DENGAN URUTANNYA, KLO ENGGA NANTI BAKAL ERROR DUAR JEBLUG MODARRRR
+        //hai rio
         \App\Models\Department::factory(5)->create();
 
         $gradeCount = 35;
