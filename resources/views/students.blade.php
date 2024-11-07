@@ -19,7 +19,7 @@
                 <td class="py-3 px-4">{{$loop->iteration}}</td>
                 <td class="py-3 px-4">{{$student->name}}</td>
                 <td class="py-3 px-4">{{ $student->grade ? $student->grade->name : 'N/A' }}</td>
-                <td class="py-3 px-4">{{ $student->department ? $student->department->name : 'N/A' }}</td>
+                <td class="py-3 px-4">{{ $student->grade->department ? $student->grade->department->name : 'N/A' }}</td>
                 <td class="py-3 px-4">{{$student->email}}</td>
                 <td class="py-3 px-4">{{$student->address}}</td>
               </tr>
