@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         //hai rio
         \App\Models\Department::factory(5)->create();
 
-        $gradeCount = 35;
+        $gradeCount = 36;
         $createdGrades = 0;
 
         while ($createdGrades < $gradeCount) {
