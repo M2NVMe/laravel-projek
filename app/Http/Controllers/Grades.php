@@ -14,7 +14,7 @@ class Grades extends Controller
     {
         return view('gradepage', [
             'title' => 'Grades',
-            'grades' => Grade::all()->load('students'),
+            'grades' => Grade::all()->load('students')->load('department'),
         ] );
     }
 

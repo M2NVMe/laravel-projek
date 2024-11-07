@@ -11,7 +11,7 @@ class StudentController extends Controller
         // Eager-load the 'grade' relationship
         return view('students', [
             'title' => 'Students',
-            'students' => Student::with('grade')->get(),
+            'students' => Student::all()->load('grade')->load('department'),
         ]);
     }
 
