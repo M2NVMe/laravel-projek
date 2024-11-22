@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminpage;
 use App\Http\Controllers\contact;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepratmentController;
@@ -20,3 +21,5 @@ Route::get('/students', [StudentController::class, 'index']);
 Route::get('/grades', [Grades::class, 'index']);
 
 Route::get('/department', [DepartmentController::class, 'index']);
+
+Route::get('/adminpage', [adminpage::class, 'index']);
