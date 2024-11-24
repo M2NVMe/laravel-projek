@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Grade;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class adminpage extends Controller
@@ -12,6 +15,24 @@ class adminpage extends Controller
     public function index()
     {
        return view('adminpage');
+    }
+
+    public function index2() {
+        return view('siswa-adminpage', [
+            'students' => Student::all()->load('grade')->load('department')
+        ]);
+    }
+
+    public function index3() {
+        return view('grades-adminpage', [
+            'grades' => Grade::all()->load('students')->load('department'),
+        ]);
+    }
+
+    public function index4() {
+        return view('departments-adminpage', [
+            'departments' => Department::all()
+        ]);
     }
 
     /**

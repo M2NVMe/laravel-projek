@@ -23,3 +23,9 @@ Route::get('/grades', [Grades::class, 'index']);
 Route::get('/department', [DepartmentController::class, 'index']);
 
 Route::get('/adminpage', [adminpage::class, 'index']);
+
+Route::get('/adminpage/students', [adminpage::class, 'index2']);
+
+Route::get('/adminpage/grades', [adminpage::class, 'index3']);
+
+Route::get('/adminpage/departments', [adminpage::class, 'index4']);
