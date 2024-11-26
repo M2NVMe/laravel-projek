@@ -1,17 +1,18 @@
 <x-layout-admin>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white rounded-lg shadow-lg">
-          <thead class="bg-gray-800 text-white">
-            <tr>
-              <th class="py-3 px-4 text-left">Grade ID</th>
-              <th class="py-3 px-4 text-left">Name</th>
-              <th class="py-3 px-4 text-left">Department</th>
-              <th class="py-3 px-4 text-left">Student List</th>
-            </tr>
-          </thead>
-          <tbody>
+    <x-table-style>
+        <x-slot:buttontitle>
+            Add Grade
+        </x-slot:buttontitle>
+        <x-slot:header>
+            <th class="py-3 px-4 text-left">Grade ID</th>
+            <th class="py-3 px-4 text-left">Name</th>
+            <th class="py-3 px-4 text-left">Department</th>
+            <th class="py-3 px-4 text-left">Student List</th>
+
+        </x-slot:header>
+        <x-slot:body>
             @foreach ($grades as $grade)
-            <tr class="bg-gray-300 border-b-2 border-gray-800">
+            <tr class="bg-gray-100 hover:bg-gray-200 border-b">
                 <td class="py-3 px-4">{{$grade["id"]}}</td>
                 <td class="py-3 px-4">{{$grade["name"]}}</td>
                 <td class="py-3 px-4">{{ $grade->department ? $grade->department->name : 'N/A' }}</td>
@@ -24,8 +25,6 @@
                 </td>
               </tr>
             @endforeach
-            <!-- Additional rows can go here -->
-          </tbody>
-        </table>
-      </div>
+        </x-slot:body>
+    </x-table-style>
 </x-layout-admin>
