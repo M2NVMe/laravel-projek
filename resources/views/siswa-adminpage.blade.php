@@ -10,7 +10,7 @@
                     <th class="py-3 px-4 text-left font-semibold">Department</th>
                     <th class="py-3 px-4 text-left font-semibold">Email</th>
                     <th class="py-3 px-4 text-left font-semibold">Address</th>
-                    <th class="py-3 px-4 text-left font-semibold">Action</th>
+                    <th class="py-3 px-4 text-left font-semibold">Actions</th>
         </x-slot:header>
         <x-slot:body>
             @foreach ($students as $student)
