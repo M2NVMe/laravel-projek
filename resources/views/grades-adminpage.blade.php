@@ -8,6 +8,7 @@
             <th class="py-3 px-4 text-left">Name</th>
             <th class="py-3 px-4 text-left">Department</th>
             <th class="py-3 px-4 text-left">Student List</th>
+            <th class="py-3 px-4 text-left font-semibold">Actions</th>
 
         </x-slot:header>
         <x-slot:body>
@@ -22,6 +23,11 @@
                         <li>{{$student->name}}</li>
                     </ul>
                     @endforeach
+                </td>
+                <td class="py-3 px-4 text-gray-700 flex items-center gap-x-2">
+                    <img src="{{ asset('images/eye.svg') }}" alt="View" class="w-6 h-6" class="">
+                    <img src="{{ asset('images/edit.svg') }}" alt="Edit" class="w-6 h-6">
+                    <img src="{{ asset('images/trash.svg') }}" alt="trash" class="w-6 h-6">
                 </td>
               </tr>
             @endforeach
