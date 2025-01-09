@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Department;
 use App\Models\Grade;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class adminpage extends Controller
 {
@@ -14,23 +15,23 @@ class adminpage extends Controller
      */
     public function index()
     {
-       return view('adminpage');
+       return view('AdminPages/adminpage');
     }
 
     public function index2() {
-        return view('siswa-adminpage', [
+        return view('AdminPages/siswa-adminpage', [
             'students' => Student::all()->load('grade')->load('department')
         ]);
     }
 
     public function index3() {
-        return view('grades-adminpage', [
+        return view('AdminPages/grades-adminpage', [
             'grades' => Grade::all()->load('students')->load('department'),
         ]);
     }
 
     public function index4() {
-        return view('departments-adminpage', [
+        return view('AdminPages/departments-adminpage', [
             'departments' => Department::all()
         ]);
     }

@@ -12,7 +12,7 @@ class Grades extends Controller
      */
     public function index()
     {
-        return view('gradepage', [
+        return view('ClientPages/gradepage', [
             'title' => 'Grades',
             'grades' => Grade::all()->load('students')->load('department'),
         ] );

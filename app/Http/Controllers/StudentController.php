@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     public function index() {
         // Eager-load the 'grade' relationship
-        return view('students', [
+        return view('ClientPages/students', [
             'title' => 'Students',
             'students' => Student::all()->load('grade')->load('department'),
         ]);

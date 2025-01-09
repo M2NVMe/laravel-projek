@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        return view('RealHome', [
+        return view('ClientPages/RealHome', [
             'title' => 'ini home',
             'pagename' => 'Proyek laravel'
         ]);
