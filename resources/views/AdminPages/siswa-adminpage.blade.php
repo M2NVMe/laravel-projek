@@ -1,5 +1,5 @@
-<x-layout-admin>
-    <x-table-style>
+<x-AdminComp.layout-admin>
+    <x-AdminComp.table-style>
         <x-slot:buttontitle>
             Add Student
         </x-slot:buttontitle>
@@ -34,5 +34,5 @@
                 @endforeach
 
         </x-slot:body>
-    </x-table-style>
-</x-layout-admin>
+    </x-AdminComp.table-style>
+</x-AdminComp.layout-admin>

@@ -12,12 +12,12 @@
 <body>
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
         {{-- top navigation bar --}}
-        <x-topnav>
+        <x-AdminComp.topnav>
             <x-slot:logolink>/adminpage</x-slot:logolink>
             <x-slot:leftlogo>https://flowbite.s3.amazonaws.com/logo.svg</x-slot:leftlogo>
-        </x-topnav>
+        </x-AdminComp.topnav>
         <!-- Sidebar -->
-        <x-side-navbar></x-side-navbar>
+        <x-AdminComp.side-navbar></x-AdminComp.side-navbar>
 
         <main class="p-4 md:ml-64 h-auto pt-20">
             {{$slot}}

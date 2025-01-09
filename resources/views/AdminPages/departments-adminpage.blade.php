@@ -1,5 +1,5 @@
-<x-layout-admin>
-    <x-table-style>
+<x-AdminComp.layout-admin>
+    <x-AdminComp.table-style>
         <x-slot:buttontitle>
             Add Department
         </x-slot:buttontitle>
@@ -30,5 +30,5 @@
               </tr>
             @endforeach
         </x-slot:body>
-    </x-table-style>
-</x-layout-admin>
+    </x-AdminComp.table-style>
+</x-AdminComp.layout-admin>

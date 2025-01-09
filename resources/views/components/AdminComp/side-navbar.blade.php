@@ -1,4 +1,4 @@
-<aside
+    <aside
           class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
           aria-label="Sidenav"
           id="drawer-navigation"
@@ -33,15 +33,15 @@
               </div>
             </form>
             <ul class="space-y-2">
-              <x-button-sidebar href="/adminpage">
+              <x-AdminComp.button-sidebar href="/adminpage">
                 <x-slot:title>Dashboard</x-slot:title>
-              </x-button-sidebar>
-              <x-dropdown-button>
+              </x-AdminComp.button-sidebar>
+              <x-AdminComp.dropdown-button>
                 <x-slot:iconsvg>d = "M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"</x-slot:iconsvg>
                 <x-slot:title>Pages</x-slot:title>
-                <x-dropdownnavbar href="/adminpage/students">Students</x-dropdownnavbar>
-                <x-dropdownnavbar href="/adminpage/grades">Grades</x-dropdownnavbar>
-                <x-dropdownnavbar href="/adminpage/departments">Department</x-dropdownnavbar> </x-dropdown-button>
+                <x-AdminComp.dropdownnavbar href="/adminpage/students">Students</x-AdminComp.dropdownnavbar>
+                <x-AdminComp.dropdownnavbar href="/adminpage/grades">Grades</x-AdminComp.dropdownnavbar>
+                <x-AdminComp.dropdownnavbar href="/adminpage/departments">Department</x-AdminComp.dropdownnavbar> </x-AdminComp.dropdown-button>
             </ul>
             <ul
               class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
@@ -294,4 +294,5 @@
               </ul>
             </div>
           </div>
+
         </aside>
