@@ -1,4 +1,4 @@
-<x-layout>
+<x-ClientComp.layout>
     <x-slot:dokumentitle>{{$title}}</x-slot>
     <x-slot:title>{{$title}}</x-slot>
     <div class="overflow-x-auto">
@@ -27,4 +27,4 @@
           </tbody>
         </table>
       </div>
-</x-layout>
+</x-ClientComp.layout>

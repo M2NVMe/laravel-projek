@@ -8,11 +8,11 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <x-nav-link href="/home" :active="request()->is ('home')">Home</x-nav-link>
-              <x-nav-link href="/students" :active="request()->is ('students')">Students</x-nav-link>
-              <x-nav-link href="/grades" :active="request()->is ('grades')">Grades</x-nav-link>
-              <x-nav-link href="/department" :active="request()->is ('department')">Department</x-nav-link>
-              <x-nav-link href="/contact" :active="request()->is ('contact')">Contact</x-nav-link>
+              <x-ClientComp.nav-link href="/home" :active="request()->is ('home')">Home</x-ClientComp.nav-link>
+              <x-ClientComp.nav-link href="/students" :active="request()->is ('students')">Students</x-ClientComp.nav-link>
+              <x-ClientComp.nav-link href="/grades" :active="request()->is ('grades')">Grades</x-ClientComp.nav-link>
+              <x-ClientComp.nav-link href="/department" :active="request()->is ('department')">Department</x-ClientComp.nav-link>
+              <x-ClientComp.nav-link href="/contact" :active="request()->is ('contact')">Contact</x-ClientComp.nav-link>
             </div>
           </div>
         </div>
@@ -85,11 +85,11 @@
     <div x-show="isOpen" class="md:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <x-nav-link-mobile href="/home" :active="request()->is ('home')">Home</x-nav-link-mobile>
-        <x-nav-link-mobile href="/students" :active="request()->is ('students')">Students</x-nav-link-mobile>
-        <x-nav-link-mobile href="/grades" :active="request()->is ('grades')">Grades</x-nav-link-mobile>
-        <x-nav-link-mobile href="/department" :active="request()->is ('department')">Department</x-nav-link-mobile>
-        <x-nav-link-mobile href="/contact" :active="request()->is ('contact')">Contact</x-nav-link-mobile>
+        <x-ClientComp.nav-link-mobile href="/home" :active="request()->is ('home')">Home</x-ClientComp.nav-link-mobile>
+        <x-ClientComp.nav-link-mobile href="/students" :active="request()->is ('students')">Students</x-ClientComp.nav-link-mobile>
+        <x-ClientComp.nav-link-mobile href="/grades" :active="request()->is ('grades')">Grades</x-ClientComp.nav-link-mobile>
+        <x-ClientComp.nav-link-mobile href="/department" :active="request()->is ('department')">Department</x-ClientComp.nav-link-mobile>
+        <x-ClientComp.nav-link-mobile href="/contact" :active="request()->is ('contact')">Contact</x-ClientComp.nav-link-mobile>
       </div>
       <div class="border-t border-gray-700 pb-3 pt-4">
         <div class="flex items-center px-5">
