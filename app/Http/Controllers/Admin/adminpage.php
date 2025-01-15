@@ -19,9 +19,7 @@ class adminpage extends Controller
     }
 
     public function index2() {
-        return view('AdminPages/siswa-adminpage', [
-            'students' => Student::all()->load('grade')->load('department')
-        ]);
+
     }
 
     public function index3() {
@@ -41,7 +39,7 @@ class adminpage extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -49,7 +47,7 @@ class adminpage extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
