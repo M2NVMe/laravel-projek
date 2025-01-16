@@ -57,7 +57,12 @@ class admingrade extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $grade = Grade::findOrFail($id);
+        $departments = Department::all();
+        return view('AdminPages.grades.grade-edit', [
+            'grade' => $grade,
+            'departments' => $departments
+        ]);
     }
 
     /**
@@ -65,7 +70,16 @@ class admingrade extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'department_id' => 'required|string|exists:departments,id'
+        ]);
+        $grade = Grade::findOrFail($id);
+        $grade->update([
+            'name' => $validated['name'],
+            'department_id' => $validated['department_id']
+        ]);
+        return redirect('/adminpage/grades')->with('success', 'Grade updated successfully');
     }
 
     /**

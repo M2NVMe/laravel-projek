@@ -17,22 +17,26 @@
             <th class="py-3 px-4 text-left">Department</th>
             <th class="py-3 px-4 text-left">Student List</th>
             <th class="py-3 px-4 text-left font-semibold">Actions</th>
-
         </x-slot:header>
         <x-slot:body>
-            @foreach ($grades as $grade)
+            @foreach ($grades ?? [] as $grade)
             <tr class="bg-gray-100 hover:bg-gray-200 border-b">
-                <td class="py-3 px-4">{{$grade["id"]}}</td>
-                <td class="py-3 px-4">{{$grade["name"]}}</td>
-                <td class="py-3 px-4">{{ $grade->department ? $grade->department->name : 'N/A' }}</td>
+                <td class="py-3 px-4">{{ $loop->iteration }}</td>
+                <td class="py-3 px-4">{{ $grade->name ?? 'N/A' }}</td>
+                <td class="py-3 px-4">{{ optional($grade->department)->name ?? 'N/A' }}</td>
                 <td class="py-3 px-4">
-                    @foreach ($grade->students as $student)
-                    <ul>
-                        <li>{{$student->name}}</li>
-                    </ul>
-                    @endforeach
+                    @if($grade->students && $grade->students->count() > 0)
+                        @foreach($grade->students as $student)
+                        <ul>
+                            <li>{{ $student->name ?? 'Unnamed Student' }}</li>
+                        </ul>
+                        @endforeach
+                    @else
+                        <span class="text-gray-500">No students</span>
+                    @endif
                 </td>
                 <td class="py-3 px-4 flex space-x-4">
+                    @if($grade->id)
                     <a href="/adminpage/grades/edit/{{ $grade->id }}">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -52,56 +56,63 @@
                                 d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                         </svg>
                     </button>
+                    @endif
                 </td>
-              </tr>
+            </tr>
             @endforeach
-            <!--modals and script goes beyond this point and not before-->
+
+            <!-- Delete confirmation modal -->
             <div id="deleteModal"
                 class="fixed inset-0 z-50 hidden flex justify-center items-center bg-gray-800 bg-opacity-50">
                 <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                     <h3 class="text-lg font-semibold text-gray-800">Apakah anda yakin untuk menghapus data kelas?</h3>
                     <p class="text-sm text-gray-600 mt-2">Data tidak bisa dikembalikan setelah dihapus.</p>
                     <div class="mt-4 flex justify-end space-x-4">
-                        <!-- Tombol Cancel -->
                         <button id="cancelDelete"
                             class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Batal</button>
-                        <!-- Tombol Confirm -->
                         <button id="confirmDelete"
                             class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Hapus</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Form for DELETE Request -->
-            <form id="deleteForm" action="/adminpage/grades/delete/{{ $grade->id }}" method="POST"
-                style="display:none;">
+            <!-- Hidden form for delete action -->
+            <form id="deleteForm" method="POST" style="display:none;">
                 @csrf
                 @method('DELETE')
             </form>
+
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     // Delete Modal
                     const deleteModal = document.getElementById('deleteModal');
                     const confirmDeleteButton = document.getElementById('confirmDelete');
                     const cancelDeleteButton = document.getElementById('cancelDelete');
+                    const deleteForm = document.getElementById('deleteForm');
                     let gradeIdToDelete = null;
 
-                    document.querySelectorAll('#deleteButton').forEach(button => {
-                        button.addEventListener('click', function() {
-                            gradeIdToDelete = button.getAttribute('data-id');
-                            deleteModal.classList.remove('hidden');
+                    // Safely handle delete button clicks
+                    if (deleteModal && confirmDeleteButton && cancelDeleteButton && deleteForm) {
+                        document.querySelectorAll('#deleteButton').forEach(button => {
+                            button.addEventListener('click', function() {
+                                gradeIdToDelete = button.getAttribute('data-id');
+                                if (gradeIdToDelete) {
+                                    deleteModal.classList.remove('hidden');
+                                }
+                            });
                         });
-                    });
 
-                    confirmDeleteButton.addEventListener('click', function() {
-                        const deleteForm = document.getElementById('deleteForm');
-                        deleteForm.action = `/adminpage/grades/delete/${gradeIdToDelete}`;
-                        deleteForm.submit();
-                    });
+                        confirmDeleteButton.addEventListener('click', function() {
+                            if (gradeIdToDelete) {
+                                deleteForm.action = `/adminpage/grades/delete/${gradeIdToDelete}`;
+                                deleteForm.submit();
+                            }
+                        });
 
-                    cancelDeleteButton.addEventListener('click', function() {
-                        deleteModal.classList.add('hidden');
-                    });
+                        cancelDeleteButton.addEventListener('click', function() {
+                            deleteModal.classList.add('hidden');
+                        });
+                    }
                 });
             </script>
         </x-slot:body>

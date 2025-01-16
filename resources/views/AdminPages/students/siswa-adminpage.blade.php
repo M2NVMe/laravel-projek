@@ -24,22 +24,26 @@
             @foreach ($students as $student)
                 <tr class="bg-gray-100 hover:bg-gray-200 border-b">
                     <td class="py-3 px-4 text-gray-700">{{ $loop->iteration }}</td>
-                    <td class="py-3 px-4 text-gray-700">{{ $student->name }}</td>
+                    <td class="py-3 px-4 text-gray-700">{{ $student->name ?? 'N/A' }}</td>
                     <td class="py-3 px-4 text-gray-700">
-                        {{ $student->grade ? $student->grade->name : 'N/A' }}
+                        {{ $student->grade->name ?? 'N/A' }}
                     </td>
                     <td class="py-3 px-4 text-gray-700">
-                        {{ $student->grade && $student->grade->department ? $student->grade->department->name : 'N/A' }}
+                        {{ optional(optional($student->grade)->department)->name ?? 'N/A' }}
                     </td>
-                    <td class="py-3 px-4 text-gray-700">{{ $student->email }}</td>
-                    <td class="py-3 px-4 text-gray-700">{{ $student->address }}</td>
-                    <!--ini pembatas, biarin aja disini-->
+                    <td class="py-3 px-4 text-gray-700">{{ $student->email ?? 'N/A' }}</td>
+                    <td class="py-3 px-4 text-gray-700">{{ $student->address ?? 'N/A' }}</td>
                     <td class="py-3 px-4 flex space-x-4">
-                        <button id="modalDetail" class="modalDetailBtn" data-name="{{ $student->name }}"
-                            data-grade="{{ $student->grade->name }}" data-email="{{ $student->email }}"
-                            data-department="{{ $student->department->name }}" data-address="{{ $student->address }}"
-                            data-modal-target="readStudentModal" data-modal-toggle="readStudentModal"
-                            studentId="{{ $student->id }}" type="button">
+                        <button id="modalDetail" class="modalDetailBtn"
+                            data-name="{{ $student->name ?? 'N/A' }}"
+                            data-grade="{{ optional($student->grade)->name ?? 'N/A' }}"
+                            data-email="{{ $student->email ?? 'N/A' }}"
+                            data-department="{{ optional(optional($student->grade)->department)->name ?? 'N/A' }}"
+                            data-address="{{ $student->address ?? 'N/A' }}"
+                            data-modal-target="readStudentModal"
+                            data-modal-toggle="readStudentModal"
+                            studentId="{{ $student->id }}"
+                            type="button">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -48,6 +52,7 @@
                                 <path stroke="currentColor" stroke-width="1" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                         </button>
+                        @if($student->id)
                         <a href="/adminpage/students/edit/{{ $student->id }}">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -67,15 +72,16 @@
                                     d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                             </svg>
                         </button>
+                        @endif
                     </td>
                 </tr>
             @endforeach
+
+            <!-- Modal for reading student details -->
             <div id="readStudentModal" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
-                    <!-- Modal content -->
                     <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                        <!-- Modal header -->
                         <dl>
                             <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Name</dt>
                             <dd id="modalName" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
@@ -87,8 +93,7 @@
                             <dd id="modalEmail" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                             <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Department</dt>
-                            <dd id="modalDepartment" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            </dd>
+                            <dd id="modalDepartment" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                             <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Address</dt>
                             <dd id="modalAddress" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
@@ -99,12 +104,8 @@
                                     class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                     <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                        </path>
-                                        <path fill-rule="evenodd"
-                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                            clip-rule="evenodd"></path>
+                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                     </svg>
                                     Edit
                                 </a>
@@ -114,83 +115,96 @@
                 </div>
             </div>
 
-
+            <!-- Delete confirmation modal -->
             <div id="deleteModal"
                 class="fixed inset-0 z-50 hidden flex justify-center items-center bg-gray-800 bg-opacity-50">
                 <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
                     <h3 class="text-lg font-semibold text-gray-800">Apakah anda yakin untuk menghapus data siswa?</h3>
                     <p class="text-sm text-gray-600 mt-2">Data tidak bisa dikembalikan setelah dihapus.</p>
                     <div class="mt-4 flex justify-end space-x-4">
-                        <!-- Tombol Cancel -->
                         <button id="cancelDelete"
                             class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Batal</button>
-                        <!-- Tombol Confirm -->
                         <button id="confirmDelete"
                             class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Hapus</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Form for DELETE Request -->
-            <form id="deleteForm" action="/adminpage/students/delete/{{ $student->id }}" method="POST"
-                style="display:none;">
+            <!-- Hidden form for delete action -->
+            <form id="deleteForm" method="POST" style="display:none;">
                 @csrf
                 @method('DELETE')
             </form>
-
-            <!-- Modal will be shown when user clicks the delete button -->
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
                     // Detail Modal
                     const modalDetailBtns = document.querySelectorAll('.modalDetailBtn');
                     const modal = document.getElementById('readStudentModal');
-                    const modalName = document.getElementById('modalName');
-                    const modalGrade = document.getElementById('modalGrade');
-                    const modalEmail = document.getElementById('modalEmail');
-                    const modalDepartment = document.getElementById('modalDepartment');
-                    const modalAddress = document.getElementById('modalAddress');
-                    const modalEditButton = document.getElementById('modalEditButton');
+                    const modalElements = {
+                        name: document.getElementById('modalName'),
+                        grade: document.getElementById('modalGrade'),
+                        email: document.getElementById('modalEmail'),
+                        department: document.getElementById('modalDepartment'),
+                        address: document.getElementById('modalAddress'),
+                        editButton: document.getElementById('modalEditButton')
+                    };
 
-                    modalDetailBtns.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const studentId = button.getAttribute('studentId');
+                    if (modal && modalDetailBtns) {
+                        modalDetailBtns.forEach(button => {
+                            button.addEventListener('click', function() {
+                                const studentId = button.getAttribute('studentId');
 
-                            // Update modal content
-                            modalName.textContent = button.getAttribute('data-name');
-                            modalGrade.textContent = button.getAttribute('data-grade');
-                            modalEmail.textContent = button.getAttribute('data-email');
-                            modalDepartment.textContent = button.getAttribute('data-department');
-                            modalAddress.textContent = button.getAttribute('data-address');
+                                // Safely update modal content
+                                Object.entries(modalElements).forEach(([key, element]) => {
+                                    if (element && key !== 'editButton') {
+                                        element.textContent = button.getAttribute(`data-${key}`) || 'N/A';
+                                    }
+                                });
 
-                            // Update edit button href with the correct student ID
-                            modalEditButton.href = `/adminpage/students/edit/${studentId}`;
+                                // Safely update edit button href
+                                if (modalElements.editButton && studentId) {
+                                    modalElements.editButton.href = `/adminpage/students/edit/${studentId}`;
+                                }
 
-                            modal.classList.remove('hidden');
+                                modal.classList.remove('hidden');
+                            });
                         });
-                    });
+                    }
+
                     // Delete Modal
                     const deleteModal = document.getElementById('deleteModal');
                     const confirmDeleteButton = document.getElementById('confirmDelete');
                     const cancelDeleteButton = document.getElementById('cancelDelete');
+                    const deleteForm = document.getElementById('deleteForm');
                     let studentIdToDelete = null;
 
+                    // Safely handle delete button clicks
                     document.querySelectorAll('#deleteButton').forEach(button => {
                         button.addEventListener('click', function() {
                             studentIdToDelete = button.getAttribute('data-id');
-                            deleteModal.classList.remove('hidden');
+                            if (deleteModal && studentIdToDelete) {
+                                deleteModal.classList.remove('hidden');
+                            }
                         });
                     });
 
-                    confirmDeleteButton.addEventListener('click', function() {
-                        const deleteForm = document.getElementById('deleteForm');
-                        deleteForm.action = `/adminpage/students/delete/${studentIdToDelete}`;
-                        deleteForm.submit();
-                    });
+                    // Safe delete confirmation
+                    if (confirmDeleteButton && deleteForm) {
+                        confirmDeleteButton.addEventListener('click', function() {
+                            if (studentIdToDelete) {
+                                deleteForm.action = `/adminpage/students/delete/${studentIdToDelete}`;
+                                deleteForm.submit();
+                            }
+                        });
+                    }
 
-                    cancelDeleteButton.addEventListener('click', function() {
-                        deleteModal.classList.add('hidden');
-                    });
+                    // Safe cancel action
+                    if (cancelDeleteButton && deleteModal) {
+                        cancelDeleteButton.addEventListener('click', function() {
+                            deleteModal.classList.add('hidden');
+                        });
+                    }
                 });
             </script>
         </x-slot:body>
