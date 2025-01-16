@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Grade;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,9 @@ class admingrade extends Controller
      */
     public function create()
     {
-
+        return view('AdminPages.grades.grade-creation', [
+            'departments' => Department::all(),
+        ]);
     }
 
     /**
@@ -35,6 +38,10 @@ class admingrade extends Controller
             'name' => 'required|string|max:255',
             'department_id' => 'required|string|exists:departments,id'
         ]);
+
+        Grade::create($validated);
+
+        return redirect('/adminpage/grades')->with('success', 'Grade created successfully');
     }
 
     /**
@@ -66,6 +73,9 @@ class admingrade extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $grade = Grade::findOrFail($id);
+        $grade->delete();
+
+        return redirect('/adminpage/grades')->with('success', 'Grade deleted successfully.');
     }
 }

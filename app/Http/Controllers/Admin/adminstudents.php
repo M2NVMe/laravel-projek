@@ -25,7 +25,7 @@ class AdminStudents extends Controller
      */
     public function create()
     {
-        return view('AdminPages.student-creation', [
+        return view('AdminPages.students.student-creation', [
             'grades' => Grade::all(),
             'departments' => Department::all(),
         ]);

@@ -31,6 +31,11 @@ Route::prefix('adminpage')->group(function () {
     });
     Route::prefix('grades')->group(function() {
         Route::get('/', [admingrade::class, 'index']);
+        Route::get('/create', [admingrade::class, 'create']);
+        Route::post('/store', [admingrade::class, 'store']);
+        Route::get('/edit/{id}', [admingrade::class, 'edit']);
+        Route::put('/update/{id}', [admingrade::class, 'update']);
+        Route::delete('/delete/{id}', [admingrade::class, 'destroy']);
     });
     Route::prefix('departments')->group(function() {
         Route::get('/', [admindepartment::class, 'index']);
