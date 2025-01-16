@@ -19,7 +19,6 @@ Route::get('/department', [DepartmentController::class, 'index']);
 
 Route::prefix('adminpage')->group(function () {
     Route::get('/', [adminpage::class, 'index']);
-
     Route::prefix('students')->group(function() {
         Route::get('/', [adminstudents::class, 'index']);
         Route::get('/create', [adminstudents::class, 'create']);
@@ -28,7 +27,6 @@ Route::prefix('adminpage')->group(function () {
         Route::put('/update/{id}', [adminstudents::class, 'update']); // Fixed placeholder
         Route::delete('/delete/{id}', [adminstudents::class, 'destroy']); // Fixed placeholder
     });
-
     Route::get('/grades', [adminpage::class, 'index3']);
     Route::get('/departments', [adminpage::class, 'index4']);
 });
