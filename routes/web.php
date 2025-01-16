@@ -39,5 +39,10 @@ Route::prefix('adminpage')->group(function () {
     });
     Route::prefix('departments')->group(function() {
         Route::get('/', [admindepartment::class, 'index']);
+        Route::get('/create', [admindepartment::class, 'create']);
+        Route::post('/store', [admindepartment::class, 'store']);
+        Route::get('/edit/{id}', [admindepartment::class, 'edit']);
+        Route::put('/update/{id}', [admindepartment::class, 'update']);
+        Route::delete('/delete/{id}', [admindepartment::class, 'destroy']);
     });
 });

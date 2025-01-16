@@ -23,7 +23,9 @@ class admindepartment extends Controller
      */
     public function create()
     {
-        //
+        return view('AdminPages.departments.departments-creation', [
+            'departments' => Department::all()
+        ]);
     }
 
     /**
@@ -31,7 +33,14 @@ class admindepartment extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255'
+        ]);
+
+        Department::create($validated);
+
+        return redirect('/adminpage/departments')->with('success', 'Grade created successfully');
     }
 
     /**
@@ -47,7 +56,10 @@ class admindepartment extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $department = Department::findOrFail($id);
+        return view('AdminPages.departments.departments-edit', [
+            'departments' => $department
+        ]);
     }
 
     /**
@@ -55,7 +67,16 @@ class admindepartment extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255'
+        ]);
+        $department = Department::findOrFail($id);
+        $department->update([
+            'name' => $validated['name'],
+            'description' => $validated['description']
+        ]);
+        return redirect('/adminpage/departments')->with('success', 'Grade created successfully');
     }
 
     /**
@@ -63,6 +84,9 @@ class admindepartment extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $department = Department::findOrFail($id);
+        $department->delete();
+
+        return redirect('/adminpage/departments')->with('success', 'Department deleted successfully.');
     }
 }
