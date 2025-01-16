@@ -15,7 +15,7 @@ class AdminStudents extends Controller
      */
     public function index()
     {
-        return view('AdminPages.siswa-adminpage', [
+        return view('AdminPages.students.siswa-adminpage', [
             'students' => Student::with(['grade', 'department'])->get(),
         ]);
     }
@@ -58,7 +58,7 @@ class AdminStudents extends Controller
     $grades = Grade::all();
     $departments = Department::all();
 
-    return view('AdminPages.student-edit', [
+    return view('AdminPages.students.student-edit', [
         'student' => $student,
         'grades' => $grades,
         'departments' => $departments,

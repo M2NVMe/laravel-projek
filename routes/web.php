@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\admindepartment;
+use App\Http\Controllers\Admin\admingrade;
 use App\Http\Controllers\Admin\adminpage;
 use App\Http\Controllers\Admin\adminstudents;
 use App\Http\Controllers\contact;
@@ -27,6 +29,10 @@ Route::prefix('adminpage')->group(function () {
         Route::put('/update/{id}', [adminstudents::class, 'update']); // Fixed placeholder
         Route::delete('/delete/{id}', [adminstudents::class, 'destroy']); // Fixed placeholder
     });
-    Route::get('/grades', [adminpage::class, 'index3']);
-    Route::get('/departments', [adminpage::class, 'index4']);
+    Route::prefix('grades')->group(function() {
+        Route::get('/', [admingrade::class, 'index']);
+    });
+    Route::prefix('departments')->group(function() {
+        Route::get('/', [admindepartment::class, 'index']);
+    });
 });

@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Department;
-use App\Models\Grade;
-use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
+use Illuminate\Http\Request;
 
-class adminpage extends Controller
+class admingrade extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       return view('AdminPages/adminpage');
+        return view('AdminPages/grades/grades-adminpage', [
+            'grades' => Grade::all()->load('students')->load('department'),
+        ]);
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -30,7 +31,10 @@ class adminpage extends Controller
      */
     public function store(Request $request)
     {
-
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'department_id' => 'required|string|exists:departments,id'
+        ]);
     }
 
     /**
